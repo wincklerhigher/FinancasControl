@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1092150775722",
+    "project_id": "my-project-ef3e6",
+    "storage_bucket": "my-project-ef3e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092150775722:android:0ac3a0d59a0c68bdb1a5d3",
+        "android_client_info": {
+          "package_name": "com.financasoncontrol"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl2uKZDH68Z2Cx-ScQAX5yPoaK6fBLleA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
