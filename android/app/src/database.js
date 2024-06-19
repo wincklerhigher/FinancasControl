@@ -1,4 +1,4 @@
-const SQLite = require('react-native-sqlite-storage');
+import { openDatabase } from 'react-native-sqlite-storage';
 
 // Abre o banco de dados
 const db = SQLite.openDatabase(
