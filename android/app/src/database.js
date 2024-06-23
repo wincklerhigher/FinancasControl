@@ -1,7 +1,7 @@
-const SQLite = require('react-native-sqlite-storage');
+import { openDatabase } from 'react-native-sqlite-storage';
 
 // Abre o banco de dados
-const db = SQLite.openDatabase(
+const db = openDatabase(
   { name: 'financasoncontrol.db', location: 'default' },
   () => {},
   error => { console.error('Erro ao abrir o banco de dados:', error); }
@@ -22,7 +22,7 @@ db.transaction(tx => {
 });
 
 // Função para inserir uma nova transação no banco de dados
-function insertTransaction(description, amount, category, date, type) {
+export function insertTransaction(description, amount, category, date, type) {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
@@ -37,7 +37,7 @@ function insertTransaction(description, amount, category, date, type) {
 }
 
 // Função para recuperar todas as transações do banco de dados
-function getAllTransactions() {
+export function getAllTransactions() {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
@@ -51,7 +51,7 @@ function getAllTransactions() {
 }
 
 // Função para atualizar uma transação no banco de dados
-function updateTransaction(id, description, amount, category, date, type) {
+export function updateTransaction(id, description, amount, category, date, type) {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
@@ -67,7 +67,7 @@ function updateTransaction(id, description, amount, category, date, type) {
 }
 
 // Função para deletar uma transação do banco de dados
-function deleteTransaction(id) {
+export function deleteTransaction(id) {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
@@ -79,10 +79,3 @@ function deleteTransaction(id) {
     });
   });
 }
-
-module.exports = {
-  insertTransaction,
-  getAllTransactions,
-  updateTransaction,
-  deleteTransaction
-};
