@@ -78,4 +78,15 @@ export function deleteTransaction(id) {
       );
     });
   });
+<<<<<<< HEAD
 }
+=======
+}
+
+module.exports = {
+  insertTransaction,
+  getAllTransactions,
+  updateTransaction,
+  deleteTransaction
+};
+>>>>>>> 07df621349780df6ac8ec2fb427c8e9bae7ade17
