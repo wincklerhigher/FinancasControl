@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text } from 'react-native';
+import { TextInput, Card, Button, ProgressBar, Provider as PaperProvider } from 'react-native-paper';
 
 const Metas = () => {
   const [produto, setProduto] = useState('');
@@ -20,31 +21,40 @@ const Metas = () => {
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Metas Financeiras</Text>
-      <TextInput
-        style={{ marginBottom: 10, borderWidth: 1, borderColor: 'black', padding: 5 }}
-        placeholder="Produto desejado"
-        value={produto}
-        onChangeText={setProduto}
-      />
-      <TextInput
-        style={{ marginBottom: 10, borderWidth: 1, borderColor: 'black', padding: 5 }}
-        placeholder="Valor do produto"
-        value={valorProduto}
-        onChangeText={setValorProduto}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={{ marginBottom: 10, borderWidth: 1, borderColor: 'black', padding: 5 }}
-        placeholder="Dinheiro atual na carteira"
-        value={dinheiroAtual}
-        onChangeText={setDinheiroAtual}
-        keyboardType="numeric"
-      />
-      <Button title="Definir Meta" onPress={definirMeta} />
-      <Text style={{ marginTop: 10 }}>Progresso: {progresso.toFixed(2)}%</Text>
-    </View>
+    <PaperProvider>
+      <View style={{ padding: 20 }}>
+        <Card style={{ marginVertical: 10 }}>
+          <Card.Content>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Metas Financeiras</Text>
+            <TextInput
+              label="Produto desejado"
+              value={produto}
+              onChangeText={setProduto}
+              style={{ marginBottom: 10 }}
+            />
+            <TextInput
+              label="Valor do produto"
+              value={valorProduto}
+              onChangeText={setValorProduto}
+              keyboardType="numeric"
+              style={{ marginBottom: 10 }}
+            />
+            <TextInput
+              label="Dinheiro atual na carteira"
+              value={dinheiroAtual}
+              onChangeText={setDinheiroAtual}
+              keyboardType="numeric"
+              style={{ marginBottom: 10 }}
+            />
+            <Button mode="contained" onPress={definirMeta} style={{ marginBottom: 10 }}>
+              Definir Meta
+            </Button>
+            <Text style={{ marginTop: 10 }}>Progresso: {progresso.toFixed(2)}%</Text>
+            <ProgressBar progress={progresso / 100} color={progresso >= 100 ? 'green' : 'blue'} style={{ marginTop: 10 }} />
+          </Card.Content>
+        </Card>
+      </View>
+    </PaperProvider>
   );
 };
 

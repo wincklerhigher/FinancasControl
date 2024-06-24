@@ -78,4 +78,11 @@ export function deleteTransaction(id) {
       );
     });
   });
+  
 }
+module.exports = {
+  insertTransaction,
+  getAllTransactions,
+  updateTransaction,
+  deleteTransaction
+};

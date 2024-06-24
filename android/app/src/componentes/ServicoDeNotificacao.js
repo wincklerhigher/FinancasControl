@@ -1,3 +1,5 @@
+import React from 'react';
+import { Button } from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
@@ -53,6 +55,19 @@ class ServicoDeNotificacao {
   mostrarNotificacaoAtrasada(titulo, mensagem) {
     const delay = 10000; // 10 segundos
     this.mostrarNotificacao(titulo, mensagem, delay);
+  }
+
+  renderizarBotaoNotificacao(titulo, mensagem) {
+    return (
+      <Button
+        icon="bell"
+        mode="contained"
+        onPress={() => this.mostrarNotificacao(titulo, mensagem)}
+        style={{ marginTop: 10 }}
+      >
+        Enviar Notificação
+      </Button>
+    );
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, TextInput, Button, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
+import { TextInput, Card, Button, IconButton, Provider as PaperProvider } from 'react-native-paper';
 import { useTransactionContext } from '../TransacaoComponent';
 import styles from '../styles/FinancasStyle';
 
@@ -50,48 +51,62 @@ const RelatorioContas = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.dashboardTitle}>Relatório de Contas</Text>
-      <View style={styles.transactionContainer}>
-        <TextInput
-          style={[styles.dashboardButton, { flex: 1, marginRight: 10 }]}
-          placeholder="Descrição"
-          value={descricao}
-          onChangeText={setDescricao}
+    <PaperProvider>
+      <View style={styles.container}>
+        <Card style={styles.card}>
+          <Card.Content>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Relatórios</Text>
+            <TextInput
+              label="Descrição"
+              value={descricao}
+              onChangeText={setDescricao}
+              style={[styles.textInput, { marginBottom: 10 }]} 
+            />
+            <TextInput
+              label="Valor"
+              value={valor}
+              onChangeText={setValor}
+              keyboardType="numeric"
+              style={[styles.textInput, { marginBottom: 10 }]} 
+            />
+            {!isEditing ? (
+              <Button mode="contained" onPress={handleAdicionarGasto} style={styles.button}>
+                Adicionar
+              </Button>
+            ) : (
+              <Button mode="contained" onPress={handleSaveEdit} style={styles.button}>
+                Salvar Edição
+              </Button>
+            )}
+          </Card.Content>
+        </Card>
+        <FlatList
+          data={transactions}
+          renderItem={({ item }) => (
+            <Card style={styles.card}>
+              <Card.Content style={styles.cardContentWithMargin}>
+                <Text style={styles.descriptionText}>Descrição: {item.description}</Text>
+                <Text style={styles.amountText}>Valor: {item.amount}</Text>
+                <Text style={styles.categoryText}>Categoria: {item.category}</Text>
+                <View style={styles.buttonContainer}>
+                  <IconButton
+                    icon="delete"
+                    onPress={() => handleExcluirGasto(item.id)}                    
+                    style={styles.iconButton}
+                  />
+                  <IconButton
+                    icon="pencil"
+                    onPress={() => handleEditarGasto(item.id)}                    
+                    style={styles.iconButton}
+                  />
+                </View>
+              </Card.Content>
+            </Card>
+          )}
+          keyExtractor={(item) => item.id.toString()}
         />
-        <TextInput
-          style={[styles.dashboardButton, { flex: 1 }]}
-          placeholder="Valor"
-          value={valor}
-          onChangeText={setValor}
-          keyboardType="numeric"
-        />
-        {!isEditing ? (
-          <Button title="Adicionar" onPress={handleAdicionarGasto} />
-        ) : (
-          <Button title="Salvar Edição" onPress={handleSaveEdit} />
-        )}
       </View>
-      <FlatList
-        data={transactions}
-        renderItem={({ item }) => (
-          <View style={styles.transactionContainer}>
-            <View style={styles.transactionInfo}>
-              <Text style={styles.descriptionText}>Descrição: {item.description}</Text>
-              <Text style={styles.amountText}>Valor: {item.amount}</Text>
-              <Text style={styles.categoryText}>Categoria: {item.category}</Text>
-            </View>
-            <TouchableOpacity onPress={() => handleExcluirGasto(item.id)}>
-              <Text style={styles.deleteButton}>Excluir</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleEditarGasto(item.id)}>
-              <Text style={styles.editButton}>Editar</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    </View>
+    </PaperProvider>
   );
 };
 
